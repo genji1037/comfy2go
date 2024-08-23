@@ -462,12 +462,18 @@ func newStringProperty(input_name string, optional bool, data interface{}, index
 	if d, ok := data.(map[string]interface{}); ok {
 		// default?
 		if val, ok := d["default"]; ok {
-			c.Default = val.(string)
+			if val == nil {
+				c.Default = "nil"
+			} else {
+				c.Default = val.(string)
+			}
 		}
 
 		// multiline?
 		if val, ok := d["multiline"]; ok {
-			c.Multiline = val.(bool)
+			if val != nil {
+				c.Multiline = val.(bool)
+			}
 		}
 	}
 
