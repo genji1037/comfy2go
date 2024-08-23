@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/genji1037/comfy2go/client"
+	"github.com/richinsley/comfy2go/client"
 	"github.com/schollz/progressbar/v3"
 )
 
