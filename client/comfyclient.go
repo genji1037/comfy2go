@@ -407,3 +407,7 @@ func (c *ComfyClient) SetSharedNodeObject(sharedNodeObject *graphapi.NodeObjects
 	c.sharedNodeObjects = sharedNodeObject
 	c.nodeobjects = sharedNodeObject
 }
+
+func (c *ComfyClient) GetSharedNodeObject() *graphapi.NodeObjects {
+	return c.sharedNodeObjects
+}
