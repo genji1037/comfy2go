@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/genji1037/comfy2go/graphapi"
+	"github.com/google/uuid"
 )
 
 type QueuedItemStoppedReason string
@@ -43,6 +43,7 @@ type ComfyClient struct {
 	callbacks             *ComfyClientCallbacks
 	lastProcessedPromptID string
 	timeout               int
+	sharedNodeObjects     *graphapi.NodeObjects
 }
 
 // NewComfyClientWithTimeout creates a new instance of a Comfy2go client with a connection timeout
@@ -142,13 +143,18 @@ func (c *ComfyClient) Init() error {
 		}
 	}
 
-	// Get the object infos for the Comfy Server
-	object_infos, err := c.GetObjectInfos()
-	if err != nil {
-		return err
+	if c.sharedNodeObjects == nil {
+		// Get the object infos for the Comfy Server
+		object_infos, err := c.GetObjectInfos()
+		if err != nil {
+			return err
+		}
+
+		c.nodeobjects = object_infos
+	} else {
+		c.nodeobjects = c.sharedNodeObjects
 	}
 
-	c.nodeobjects = object_infos
 	c.initialized = true
 	return nil
 }
@@ -395,4 +401,9 @@ func (c *ComfyClient) OnWindowSocketMessage(msg string) {
 		// Handle unknown data types or return a dedicated error here
 		slog.Warn("Unhandled message type: ", "type", message.Type)
 	}
+}
+
+func (c *ComfyClient) SetSharedNodeObject(sharedNodeObject *graphapi.NodeObjects) {
+	c.sharedNodeObjects = sharedNodeObject
+	c.nodeobjects = sharedNodeObject
 }
