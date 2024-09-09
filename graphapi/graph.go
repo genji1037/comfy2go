@@ -525,6 +525,8 @@ func (t *Graph) GraphToPrompt(clientID string) (Prompt, error) {
 					linfo[1] = link.OriginSlot
 					pn.Inputs[node.Inputs[i].Name] = linfo
 				}
+			} else {
+				delete(pn.Inputs, node.Inputs[i].Name)
 			}
 		}
 		p.Nodes[node.ID] = pn
