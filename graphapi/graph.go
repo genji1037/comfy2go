@@ -505,6 +505,15 @@ func (t *Graph) GraphToPrompt(clientID string) (Prompt, error) {
 			}
 		}
 
+		// fixme: since some Comfy custom node logic implement by js, hard code here
+		switch node.Type {
+		case "easy stylesSelector":
+			widgetValues, ok := node.WidgetValues.([]interface{})
+			if ok && len(widgetValues) >= 4 {
+				pn.Inputs["select_styles"] = widgetValues[3]
+			}
+		}
+
 		// populate the node input links
 		for i, slot := range node.Inputs {
 			parent := node.GetNodeForInput(i)
