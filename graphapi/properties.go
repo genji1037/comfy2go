@@ -818,6 +818,9 @@ func NewPropertyFromInput(input_name string, optional bool, input *interface{}, 
 				case "MASK:":
 					return newUnknownProperty(input_name, optional, stype, index)
 				case "COLOR":
+					if len(slice) > 1 {
+						return newStringProperty(input_name, optional, slice[1], index)
+					}
 					return newStringProperty(input_name, optional, stype, index)
 				default:
 					return newUnknownProperty(input_name, optional, stype, index)
