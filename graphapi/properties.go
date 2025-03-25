@@ -116,7 +116,7 @@ func (b *BaseProperty) GetValue() interface{} {
 	if b.target_node != nil {
 		if b.target_node.IsWidgetValueArray() {
 			arr := b.target_node.WidgetValuesArray()
-			if len(arr) >= b.target_value_index {
+			if b.target_value_index >= len(arr) {
 				return nil
 			}
 			return arr[b.target_value_index]
