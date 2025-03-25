@@ -118,7 +118,7 @@ func (b *BaseProperty) GetValue() interface{} {
 			arr := b.target_node.WidgetValuesArray()
 			if b.target_value_index >= len(arr) {
 				if b.target_node.Type == "DualCLIPLoader" && b.name == "device" {
-					return "cuda"
+					return "default"
 				}
 				return nil
 			}
