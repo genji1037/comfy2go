@@ -120,7 +120,7 @@ func (w *WebSocketConnection) Ping() error {
 func (w *WebSocketConnection) handleMessages() {
 	defer func() {
 		w.Conn.Close()
-		w.ConnectionDone <- true
+		//w.ConnectionDone <- true
 	}()
 	for {
 		_, message, err := w.Conn.ReadMessage()
